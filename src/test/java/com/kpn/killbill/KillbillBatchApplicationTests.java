@@ -12,5 +12,17 @@ public class KillbillBatchApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
+	
+	@Test
+	public void testPMDM() {
+	}
+
+	@Test
+	public void testGeneralLedger() {
+	}
+
+	@Test
+	public void testMRR() {
+	}
 
 }
