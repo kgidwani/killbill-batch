@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kpn.killbill.model.Event;
+import com.kpn.killbill.processor.MailUtils;
 import com.kpn.killbill.repository.EventRepository;
 import com.kpn.killbill.writer.PMDMWritter;
 
@@ -100,12 +101,14 @@ public class BatchController {
 			} else if (event.getServiceProv().equalsIgnoreCase("O365")) {
 				O365 += event.getChargeAmountIncl();
 			}
+			MailUtils.sendMail(event);
 		}
 	
 
 		PMDMWritter.writePMDMCSV(events);
 		PMDMWritter.writeGL(netflix, O365);
 		System.out.println("completed MONTHLY-RUN Job");
+		
 
 	}
 
