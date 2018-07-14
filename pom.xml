@@ -96,13 +96,70 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>1.12</version>
+				<configuration>
+					<!-- <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory> -->
+					<wsdlUrls>
+						<wsdlUrl>
+							http://localhost:8080/jbilling/services/migration?wsdl
+						</wsdlUrl>
+					</wsdlUrls>
+					<packageName>com.kpn.killbill.ws</packageName>
+					<keep>true</keep>
+					<sourceDestDir>${basedir}/target/generated/src/main/java</sourceDestDir>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${basedir}/target/generated/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- <plugin> <groupId>com.spotify</groupId> <artifactId>dockerfile-maven-plugin</artifactId> 
 				<version>${dockerfile-maven-version}</version> <executions> <execution> <id>default</id> 
 				<goals> <goal>build</goal> <goal>push</goal> </goals> </execution> </executions> 
 				<configuration> <repository>docker.io/opentel/killbill</repository> <serverId>docker-hub</serverId> 
 				<tag>${project.version}</tag> <useMavenSettingsForAuth>true</useMavenSettingsForAuth> 
 				<buildArgs> <JAR_FILE>${project.build.finalName}.jar</JAR_FILE> </buildArgs> 
-				</configuration> </plugin> -->
+				</configuration> </plugin> <plugin> <groupId>org.jvnet.jaxb2.maven2</groupId> 
+				<artifactId>maven-jaxb2-plugin</artifactId> <version>0.12.3</version> <executions> 
+				<execution> <goals> <goal>generate</goal> </goals> </execution> </executions> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.kpn.killbill.jbilling</generatePackage> 
+				<schemas> <schema> <url>http://localhost:8080/jbilling/services/migration?wsdl</url> 
+				</schema> </schemas> </configuration> </plugin><plugin> <groupId>org.jvnet.jaxb2.maven2</groupId> 
+				<artifactId>maven-jaxb2-plugin</artifactId> <version>0.12.3</version> <executions> 
+				<execution> <goals> <goal>generate</goal> </goals> </execution> </executions> 
+				<configuration> <schemaLanguage>WSDL</schemaLanguage> <generatePackage>com.kpn.killbill.jbilling</generatePackage> 
+				<schemas> <schema> <url>http://localhost:8080/jbilling/services/migration?wsdl</url> 
+				</schema> </schemas> </configuration> </plugin> -->
 		</plugins>
 	</build>
 
