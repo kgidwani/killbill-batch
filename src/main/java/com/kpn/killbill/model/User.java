@@ -1,8 +1,10 @@
 package com.kpn.killbill.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class User {
 
 	private Integer accountTypeId;

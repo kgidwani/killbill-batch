@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kpn.killbill.model.Order;
 import com.kpn.killbill.model.User;
 import com.kpn.killbill.service.JbillingService;
 
@@ -25,7 +26,17 @@ public class JbillingController {
 	@PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> createUser(@RequestBody @Valid User user) throws URISyntaxException {
 
+		System.out.println(user);
 		return ResponseEntity.ok(jbillingService.createUserWithCompanyId(user));
+
+	}
+
+	@PostMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> createOrder(@RequestBody @Valid Order order) throws URISyntaxException {
+		
+		System.out.println(order);
+
+		return ResponseEntity.ok(jbillingService.createOrder(order));
 
 	}
 
